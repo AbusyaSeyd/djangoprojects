@@ -1,0 +1,157 @@
+{% load static %}
+<!-- {% load staticfiles %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	{% block title %}<title>Cart</title>{% endblock %}
+</head>
+<body>
+<hr>
+	<h2 class="text-center" align="center"><strong>Your Cart</strong></h2>	
+<hr>
+<br>
+<!-- {% if cart.items.count > 0 %}
+<div class='my-cart' > -->
+
+
+<table class="table" align="center">
+	<tr>
+		<td class="text-center"><strong> Tovar</strong> </td>
+		<td class="text-center">  </td>
+
+		<td class="text-center"><strong>Kol.</strong>  </td>
+		<td class="text-center">  </td>
+
+		<td class="text-center"> <strong> Price</strong> </td>
+		<td class="text-center">  </td>
+			<td class="text-center">  </td>
+		
+	</tr>
+
+{% for item in cart.items.all %}
+<tr class='cart-item-{{ item.product.id }}'>
+
+
+	<br>
+
+		<td class="text-center"> {{item.product.brand}}  {{ item.product.title }} </td>
+		<!-- <td class="text-center"> {{ item.qty }} </td> -->
+		<td class="text-center">  </td>
+		
+
+		<td class="text-center"> 
+			<form action="" method="GET" >
+				<input id="quantity_input" class="cart-item-qty" data-id = '{{ item.id }}' type="number" pattern="[0-9]*" value="{{ item.qty }}" min='1' style="width: 75px">
+			</form>
+			 </td>
+		
+		<td class="text-center">  </td>
+		
+		<td class="text-center" id='cart-item-total-{{ item.id }}'> {{ item.item_total }} KZT </td>
+		<td class="text-center">  </td>
+
+
+		<td class="text-center" > <a href='#' class='remove_from_cart' data-slug='{{ item.product.slug }}' data-id='{{ item.product.id }}' > <button class="btn btn-default">  Delete </button></a> </td>
+</tr>
+{% endfor %}
+
+<tr>
+	<td class="text-center"></td>
+	<td class="text-center"> <strong> Itogo:   </strong> </td>
+	<td class="text-center" id='cart-total-price'><strong> {{ cart.cart_total }} KZT</strong></td>
+	<td class="text-center"></td>
+</tr>
+</table>
+
+<br>
+<a href="{% url 'checkout' %}" class='pull-left' > <button class='btn btn-info'>Предварительный заказ</button></a>
+
+
+<!-- </div> -->
+
+<!-- <h3 class='cart-empty' ></h3>
+{% else %}
+
+<h3 class="text-center"> PUSTOY </h3>
+{% endif %}
+ -->
+
+
+<script src = "{% static 'style_pages/js/jquery-3.2.1.min.js' %}"></script>
+
+<script>
+$(document).ready(function(){
+	// $('.cart-empty').css('display','none')
+	$('.remove_from_cart').on('click', function(e){
+		e.preventDefault()
+		product_slug = $(this).attr('data-slug')
+		item_product_id = $(this).attr('data-id')
+		// product_slug = $(product_slug).remove('data-slug')
+		// console.log(item_product_id)
+		data = {
+			product_slug: product_slug
+		}
+		$.ajax({
+			type: "GET",
+			url: '{% url "remove_from_cart" %}',
+			data: data,
+			success: function(data){
+				$("#cart_count").html(data.cart_total)
+				$('.cart-item-'+ item_product_id).css('display','none')
+				$('#cart-total-price').html(parseFloat(data.cart_total_price).toFixed(2) + 'KZT')
+				// if(parseInt(data.cart_total) == 0{
+				// 	$('.my-cart').css('display','none')
+				// 	$('.cart-empty').css('display','block')
+
+				// 	$('.cart-empty').html('<h3 class="text-center"> PUSTOY </h3>')
+				// }
+			}
+		})
+	})
+})
+
+// QTY
+
+$(document).ready(function(){
+	$('.cart-item-qty').on('click', function(){
+		qty = $(this).val()
+		item_id = $(this).attr('data-id')
+		// console.log(qty)
+		// console.log(item_id)
+		data = {
+			qty: qty,
+			item_id: item_id,
+		}
+
+		$.ajax({
+			type: "GET",
+			url: '{% url "change_item_qty" %}',
+			data: data,
+			success: function(data){
+				$('#cart-item-total-' + item_id).html(parseFloat(data.item_total).toFixed(2) + 'KZT')
+				$('#cart-total-price').html(parseFloat(data.cart_total_price).toFixed(2) + 'KZT')
+			}
+		})
+
+	})
+})
+
+
+
+
+</script>
+
+<script src="{% static 'style_pages/styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'style_pages/styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/easing/easing.js' %}"></script>
+<script src="{% static 'style_pages/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'style_pages/js/cart.js' %}"></script>
+</body>
+</html>
+

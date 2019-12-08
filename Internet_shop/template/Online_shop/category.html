@@ -1,0 +1,85 @@
+{% load static %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+{% block title %}<title>Categories</title>{% endblock %}
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Sublime project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" href="{% static 'style_pages/styles/bootstrap4/bootstrap.min.css' %}">
+
+<link href="{% static 'style_pages/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css" href="{% static 'style_pages/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'style_pages/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'style_pages/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'style_pages/styles/categories.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'style_pages/styles/categories_responsive.css' %}">
+
+</head>
+<body>
+
+
+
+	
+
+
+
+	<h1>{{ category.name }}</h1>
+	<hr>
+	<!-- <h2>{{ products_of_categoty }}</h2> -->
+
+	{% for product in products_of_categoty %}
+	<div class="product">
+							<div class="product_image"><img src="{{ product.image.url }}" alt="" style="width: 80%; height: 250px;" ></div>
+							
+							<div class="product_extra product_new"><a href="{% static categories.html %}">New</a></div>
+							
+							<div class="product_content">
+
+								<h3><strong>
+
+									<div class="product_title"><a href="{{ product.get_absolute_url }}" >{{product.brand}} {{ product.title }} </a></div>
+									
+								</strong></h3>
+
+								<p>{{ product.description }}</p>
+
+								<div class="product_price">{{ product.price}} тенге го </div>
+
+							</div>
+						</div>
+		
+
+	</div>
+	{% endfor %}
+
+<script src="{% static 'style_pages/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'style_pages/styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'style_pages/styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'style_pages/plugins/Isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'style_pages/plugins/easing/easing.js' %}"></script>
+<script src="{% static 'style_pages/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'style_pages/js/categories.js' %}"></script>
+</body>
+</html>
+
+
+
+

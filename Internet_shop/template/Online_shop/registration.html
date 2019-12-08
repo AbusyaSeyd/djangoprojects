@@ -1,0 +1,27 @@
+{% load static %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="{%  static 'static_in_dev/design.css'%}">
+</head>
+<body>
+
+{% load crispy_forms_tags %}
+
+<h3 class='text-center' align="center" >Регистрация нового пользователя</h3>
+<div class='col-sm-8 col-sm-offset-2'>
+<hr>
+<form action="#0" method="POST">
+	{% csrf_token %}
+	{{ form|crispy }}
+	<input type='submit' class='btn btn-success btn-block' value='Зарегистрироваться'>
+</form>
+</div>
+
+	
+</body>
+</html>

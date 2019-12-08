@@ -1,0 +1,61 @@
+
+{% load staticfiles %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	 {% block title %}<title>Internet Shop</title>{% endblock %}
+<!-- 
+	 <link rel="stylesheet" href="{% static 'C:\Users\admin\djangoprojects\Internet_shop\static_in_dev\Design.css' %}"> -->
+	 
+	 
+	 <link rel="stylesheet" href="{%  static 'static_in_dev/design.css'%}">
+	
+	
+    
+</head>
+<body>
+
+<form action="#0"> 
+		<div>
+			<input required type="text" id="first_name" name="first_name" placeholder=" ">
+			<label for="first_name"> Write your name! </label>
+		</div>
+
+		<div>
+			<input required type="text" id="last_name" name="last_name" placeholder=" ">
+			<label for="last_name"> Surname Please! </label>
+		</div>
+
+		<div>
+			<input required type="email" id="email" name="email" placeholder=" ">
+			<label for="email"> Email Address </label>
+			<div class="requirements">
+				E-mail need
+			</div>
+		</div>
+
+		<div>
+			<input required type="password" id="password" name="password" placeholder=" " 
+			pattern="(?=.*\d)(?=.*[a-z])(?=/*[A-Z]).{6,}">
+			
+			<label for="password"> ПАРОЛЬ </label>
+			
+			<div class="requirements">
+				U need parol
+			</div>
+		</div>
+
+<input type="submit" value="Sign up">
+
+	</form>
+
+
+	<!-- <h1>Hello world!</h1> -->
+	
+
+	
+</body>
+</html>
